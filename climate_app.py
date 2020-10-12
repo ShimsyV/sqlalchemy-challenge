@@ -74,7 +74,7 @@ def precipitation():
         return jsonify(prcp_data_list)
 
 
-#Stations route
+# Stations route
 
 @app.route("/api/v1.0/stations")
 def stations():
@@ -84,6 +84,20 @@ def stations():
         station_list = list(stations_all)
         # Return JSON List of Stations from the Dataset
         return jsonify(station_list)
+
+
+# TOBS route
+
+@app.route("/api/v1.0/tobs")
+def tobs():
+     # Query for the Dates and Temperature Observations from a Year from the Last Data Point
+        one_year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
+        # Design a Query to Retrieve the Last 12 Months of temperature Data Selecting Only the `date` and `tobs` Values
+        tobs_data = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= one_year_ago).order_by(Measurement.date).all()
+        # Convert List of Tuples Into Normal List
+        tobs_data_list = list(tobs_data)
+        # Return JSON List of Temperature Observations (tobs) for the Previous Year
+        return jsonify(tobs_data_list)
 
 
 # This final if statement simply allows us to run in "Development" mode, which 
