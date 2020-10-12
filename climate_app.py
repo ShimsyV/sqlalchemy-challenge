@@ -69,9 +69,22 @@ def precipitation():
         
         # Convert List of Tuples Into a Dictionary
         prcp_data_list = dict(prcp_data)
-        
+
         # Return JSON Representation of Dictionary
         return jsonify(prcp_data_list)
+
+
+#Stations route
+
+@app.route("/api/v1.0/stations")
+def stations():
+      # Return a JSON List of Stations From the Dataset
+        stations_all = session.query(Station.station, Station.name).all()
+        # Convert List of Tuples Into Normal List
+        station_list = list(stations_all)
+        # Return JSON List of Stations from the Dataset
+        return jsonify(station_list)
+
 
 # This final if statement simply allows us to run in "Development" mode, which 
 # means that we can make changes to our files and then save them to see the results of 
