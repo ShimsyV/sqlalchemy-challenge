@@ -56,6 +56,22 @@ def home():
         f"- Minimum temperature, the average temperature, and the max temperature for dates between the start and end date inclusive."
         )
 
+# Precipitation route
+
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+        # Convert the query results to a dictionary using date as the key and prcp as the value    
+        print("Server received request for 'precipitation' page...")
+        # Calculate the Date 1 Year Ago from the Last Data Point in the Database
+        one_year_ago = dt.date(2017,8,23) - dt.timedelta(days=365)
+        
+        prcp_data = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago).order_by(Measurement.date).all()
+        
+        # Convert List of Tuples Into a Dictionary
+        prcp_data_list = dict(prcp_data)
+        
+        # Return JSON Representation of Dictionary
+        return jsonify(prcp_data_list)
 
 # This final if statement simply allows us to run in "Development" mode, which 
 # means that we can make changes to our files and then save them to see the results of 
