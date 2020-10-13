@@ -119,6 +119,22 @@ def start_day(start):
 
 
 
+@app.route("/api/v1.0/<start>/<end>")
+def start_end_day(start, end):
+    print("Server received request for 'start & End' page...")
+    sel = [Measurement.date, func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+
+    results =  (session.query(*sel).filter(func.strftime("%Y-%m-%d", Measurement.date) >= start).filter(func.strftime("%Y-%m-%d", Measurement.date) <= end).group_by(Measurement.date).all())
+
+    dates = []                       
+    for result in results:
+        date_dict = {}
+        date_dict["Date"] = result[0]
+        date_dict["Low Temp"] = result[1]
+        date_dict["Avg Temp"] = result[2]
+        date_dict["High Temp"] = result[3]
+        dates.append(date_dict)
+    return jsonify(dates)
 
 # This final if statement simply allows us to run in "Development" mode, which 
 # means that we can make changes to our files and then save them to see the results of 
