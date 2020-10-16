@@ -117,6 +117,20 @@ Now that I have completed my initial analysis, I need to design a Flask API base
  ### Temperature Analysis
  ------------------------------------------------------
  
+ #### Temperature Analysis I
+ ------------------------------------------------------
+ 
+ Hawaii is reputed to enjoy mild weather all year. Is there a meaningful difference between the temperature in, for example, June and December?
+ 
+ Identified the average temperature in June at all stations across all available years in the dataset. Did the same for December temperature. 
+ 
+ Looks like June is a better time to visit Hawaii than December. 
+ 
+ 
+ #### Temperature Analysis II
+ ------------------------------------------------------
+ 
+ 
 * The starter notebook contains a function called calc_temps that will accept a start date and end date in the format %Y-%m-%d. The function will return the minimum, average, and maximum temperatures for that range of dates.
 
 
